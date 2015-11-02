@@ -5,9 +5,22 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+
+<link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
+<div class="text-center">
+  <% flash.each do |key, value| %>
+        <% if key == "notice" %>
+          <%= content_tag :div, value, class: "error" %>
+        <% elsif key == "alert" %>
+          <%= content_tag :div, value, class: "error" %>
+        <% else %>
+          <%= content_tag :div, value, class: "error" %>
+        <% end %>
+      <% end %>  
+</div>
 <%= yield %>
 
 </body>
