@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get '/coding-challenges', to:"kata#index"
+
+  post '/coding-challenges', to:"kata#create"
+
   root "users#signup"
 
   get "/signup", to: "users#signup"
