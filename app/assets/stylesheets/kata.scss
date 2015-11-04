@@ -1,3 +1,19 @@
 // Place all the styles related to the Kata controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.language_selection{
+  text-align: center;
+
+  display: inline-block;
+  color:#C9C9C9;
+  padding: 20px;
+  padding-top: 80px;
+  background-color:rgba(0, 0, 0, 0.5);
+  margin-top: 120px;
+  height: 300px;
+}
+
+.language_button{
+  margin: 35px;
+}

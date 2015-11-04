@@ -1,7 +1,12 @@
-<h1>Kata#index</h1>
-<p>Find me in app/views/kata/index.html.erb</p>
-
+<span class="col-md-offset-2 col-md-4 language_selection">
+<h2>What are you in the mood for?</h2>
+<br>
 <%= form_tag coding_challenges_path do%>
-  <%= submit_tag "Ruby", class: 'btn btn-default' %> <br><br>
-  <%= submit_tag "JavaScript", class: 'btn btn-default' %> 
+  <span id='language'>
+  <span class='language_button'>
+  <%= submit_tag "Ruby", class: 'btn btn-lg btn-default' %>
+  </span>
+  <%= submit_tag "JavaScript", class: 'btn btn-lg btn-default' %> 
+  </span>
 <% end %>
+</span>

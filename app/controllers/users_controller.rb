@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+
+
   def signup
     @user = User.new
   end
@@ -7,7 +9,7 @@ class UsersController < ApplicationController
     @user = User.create user_params
     if @user.save
       session[:user_id] = @user.id
-      redirect_to home_path
+      redirect_to coding_challenges_path
     else
       render :signup
     end
@@ -21,7 +23,7 @@ class UsersController < ApplicationController
       found_user = User.where(username: params[:username]).first
       if found_user && found_user.authenticate(params[:password])
         session[:user_id] = found_user.id
-        redirect_to home_path
+        redirect_to coding_challenges_path
       else
         flash[:alert] = "username / password combination is invalid"
         redirect_to home_path

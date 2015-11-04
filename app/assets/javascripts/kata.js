@@ -1,3 +1,21 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+$(function(){
+  console.log("this");
+  $("#language").on('click',function(e){
+    e.preventDefault();
+    var language = ($(e.target).attr("value"));
+    var data = {katum:{language: language}};
+
+    $.ajax({
+    type:"post",
+    url:'/coding-challenges',
+    dataType: 'json',
+    data: data}
+    ).done(function(response)
+    { //slide out form for lagnuage
+      //change background to normal
+      //slide in ACE/response
+    });
+
+
+    });
+  });
