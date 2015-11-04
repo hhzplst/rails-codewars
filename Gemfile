@@ -28,6 +28,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'mandrill-api', '~> 1.0', '>= 1.0.53'
 gem 'bootstrap-sass'
 gem 'handlebars_assets'
+gem 'typhoeus'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

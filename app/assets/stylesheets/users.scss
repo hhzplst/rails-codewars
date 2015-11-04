@@ -21,10 +21,9 @@
 
 
 .error{
+  text-align: center;
   color: #d63a3a;
-  font-size: 15px;
-  padding: 10px;
-  background-color:rgba(0, 0, 0, 0.5);
+  font-size: 18px;
 }
 
 @keyframes animatedBackground {
@@ -40,3 +39,4 @@ body {
 
   animation: animatedBackground 10s linear infinite;
 }
+
