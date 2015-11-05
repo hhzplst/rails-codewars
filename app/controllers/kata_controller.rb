@@ -33,14 +33,6 @@ class KataController < ApplicationController
     solutionId = @current_user.kata.last.solutionId
     projectId = @current_user.kata.last.projectId
     answer = params["answer"]
-     request = Typhoeus::Request.new(
-      "https://www.codewars.com/api/v1/code-challenges/projects/#{projectId}/solutions/#{solutionId}/attempt",
-      method: :post,
-      params: { code: answer, output_format: "raw"},
-      headers: { Authorization: "q-sizxUQz1x1tsnxuFnY", ContentType: "text/html;" }
-    )
-    response = request.run
-    @result = JSON.parse(response.response_body)
 
     request = Typhoeus::Request.new(
       "https://www.codewars.com/api/v1/code-challenges/projects/#{projectId}/solutions/#{solutionId}/attempt",
@@ -50,32 +42,29 @@ class KataController < ApplicationController
     )
     response = request.run
     @result = JSON.parse(response.response_body)
-    dmid = @result["dmid"]
-    @output = deferred(dmid)
-    binding.pry
-    render json: @output
+    @dmid = @result["dmid"]
+    render json: {dmid: @dmid}
   end
 
-  def deferred(para)
-    scheduler = Rufus::Scheduler.new
-    puts "starting now..."
-    scheduler.in '1s' do
-      request_deferred = Typhoeus::Request.new(
-        "https://www.codewars.com/api/v1/deferred/#{para}",
-        method: :get,
-        headers: { Authorization: "q-sizxUQz1x1tsnxuFnY", ContentType: "text/html;" }
-      )
-    
-      response_deferred = request_deferred.run
-      @result_deferred = JSON.parse(response_deferred.response_body)
-      return @result_deferred
-    end    
-  end
+  def check
+    dmidCheck = params["dmid"]
+    binding.pry
+    request_deferred = Typhoeus::Request.new(
+      "https://www.codewars.com/api/v1/deferred/#{dmidCheck}",
+      method: :get,
+      headers: { Authorization: "q-sizxUQz1x1tsnxuFnY", ContentType: "text/html;" }
+    )
+    response_deferred = request_deferred.run
+    @result_deferred = JSON.parse(response_deferred.response_body)
+    binding.pry
+    render json: @result_deferred
+  end    
+
 
   private
 
   def kata_params
-    params.require(:katum).permit(:language, :answer)
+    params.require(:katum).permit(:language, :answer, :dmid)
   end
 
 end
