@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   post '/submit-answer', to:"kata#submit"
 
+  post '/check-answer', to:"kata#check"
+
   root "users#signup"
 
   get "/signup", to: "users#signup"

@@ -34,6 +34,19 @@ $(function(){
       data: data
     }).done(function(response){
       console.log(response);
+      var data2 = {dmid: response["dmid"]};
+      console.log(data2);
+       var interval = setTimeout(function(response){
+        console.log("delayed?");
+        $.ajax({
+          type: "POST",
+          url:"/check-answer",
+          dataType: 'json',
+          data: data2
+        }).done(function(response){
+          console.log(response);
+        });
+       }, 1000);
     });
   });
 });
