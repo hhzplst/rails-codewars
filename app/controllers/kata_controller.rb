@@ -6,7 +6,7 @@ class KataController < ApplicationController
     #ajax call 
     #
   end
-
+ 
   def create
     level = @current_user.level.to_s
     strategy = "kyu_#{level}_workout"
@@ -20,15 +20,62 @@ class KataController < ApplicationController
     response = request.run
     @result = JSON.parse(response.response_body)
     @setup = @result["session"]["setup"]
-    # binding.pry
-    # @katum = {description: @result["description"], setup: @result["session"]["setup"]}
+    projectId = @result["session"]["projectId"]
+    solutionId = @result["session"]["solutionId"]
+
+    @katum = Katum.create({ solutionId: solutionId,
+              projectId: projectId });
+    @current_user.kata << @katum
     render json: {description: @result["description"].gsub(/[```]/, ""), setup: @result["session"]["setup"]}
+  end
+
+  def submit
+    solutionId = @current_user.kata.last.solutionId
+    projectId = @current_user.kata.last.projectId
+    answer = params["answer"]
+     request = Typhoeus::Request.new(
+      "https://www.codewars.com/api/v1/code-challenges/projects/#{projectId}/solutions/#{solutionId}/attempt",
+      method: :post,
+      params: { code: answer, output_format: "raw"},
+      headers: { Authorization: "q-sizxUQz1x1tsnxuFnY", ContentType: "text/html;" }
+    )
+    response = request.run
+    @result = JSON.parse(response.response_body)
+
+    request = Typhoeus::Request.new(
+      "https://www.codewars.com/api/v1/code-challenges/projects/#{projectId}/solutions/#{solutionId}/attempt",
+      method: :post,
+      params: { code: answer, output_format: "raw"},
+      headers: { Authorization: "q-sizxUQz1x1tsnxuFnY", ContentType: "text/html;" }
+    )
+    response = request.run
+    @result = JSON.parse(response.response_body)
+    dmid = @result["dmid"]
+    @output = deferred(dmid)
+    binding.pry
+    render json: @output
+  end
+
+  def deferred(para)
+    scheduler = Rufus::Scheduler.new
+    puts "starting now..."
+    scheduler.in '1s' do
+      request_deferred = Typhoeus::Request.new(
+        "https://www.codewars.com/api/v1/deferred/#{para}",
+        method: :get,
+        headers: { Authorization: "q-sizxUQz1x1tsnxuFnY", ContentType: "text/html;" }
+      )
+    
+      response_deferred = request_deferred.run
+      @result_deferred = JSON.parse(response_deferred.response_body)
+      return @result_deferred
+    end    
   end
 
   private
 
   def kata_params
-    params.require(:katum).permit(:language)
+    params.require(:katum).permit(:language, :answer)
   end
 
 end
