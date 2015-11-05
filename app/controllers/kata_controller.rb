@@ -10,6 +10,7 @@ class KataController < ApplicationController
   def create
     level = @current_user.level.to_s
     strategy = "kyu_#{level}_workout"
+    language = params["language"]
     request = Typhoeus::Request.new(
       "https://www.codewars.com/api/v1/code-challenges/#{language}/train",
       method: :post,
@@ -18,14 +19,16 @@ class KataController < ApplicationController
     )
     response = request.run
     @result = JSON.parse(response.response_body)
-    @description = @result["description"].gsub(/[`]/, "")
-    @setup = @result["session"]["setup”]
+    @setup = @result["session"]["setup"]
+    # binding.pry
+    # @katum = {description: @result["description"], setup: @result["session"]["setup"]}
+    render json: {description: @result["description"].gsub(/[```]/, ""), setup: @result["session"]["setup"]}
   end
 
   private
 
   def kata_params
-    params.require(:katum).permit(:Javascript, :Ruby)
+    params.require(:katum).permit(:language)
   end
 
 end

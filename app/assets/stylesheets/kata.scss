@@ -8,12 +8,17 @@
   display: inline-block;
   color:#C9C9C9;
   padding: 20px;
-  padding-top: 80px;
+  padding-top: 40px;
   background-color:rgba(0, 0, 0, 0.5);
   margin-top: 120px;
-  height: 300px;
+  height: 200px;
 }
 
 .language_button{
-  margin: 35px;
+  margin: 20px;
+}
+
+#editor {
+    height: 600px;
+    margin-top: 10px;
 }
