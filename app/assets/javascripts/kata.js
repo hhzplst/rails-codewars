@@ -13,19 +13,27 @@ $(function(){
     data: data
     }).done(function(response){
       // console.log(response);
-      $(".language_selection").fadeOut(800,function(){
+      $(".language_selection").fadeOut(300,function(){
         $(this).css({display:"none"});
         //animation complete
       }); 
       var interval = setTimeout(function(){
         $(HandlebarsTemplates['kata/ace'](response))
-        .appendTo("body").hide().fadeIn(5000, function(){});
-      }, 800);
+        .appendTo("body").hide().fadeIn(3500, function(){});
+      }, 300);
 
 
     });
   });
   $("body").on("click", "#codesubmit", function(e){
-    console.log(editor.getValue());
+    var data = {answer: editor.getValue()};
+    $.ajax({
+      type: "POST",
+      url: "/submit-answer",
+      dataType: 'json',
+      data: data
+    }).done(function(response){
+      console.log(response);
+    });
   });
 });

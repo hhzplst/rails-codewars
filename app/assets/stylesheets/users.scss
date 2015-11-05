@@ -14,10 +14,16 @@
   box-shadow:none;
 }
 
-.navbar-default div.navbar-collapse{
+.navbar-nav > li > .dropdown-menu{
+  background-color:rgba(0, 0, 0, 0.5);
   border:none;
   box-shadow:none;
+  color:#C9C9C9;
 }
+
+// #dropDownColor{
+//   color:#C9C9C9;
+// }
 
 
 .error{

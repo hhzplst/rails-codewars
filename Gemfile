@@ -29,7 +29,7 @@ gem 'mandrill-api', '~> 1.0', '>= 1.0.53'
 gem 'bootstrap-sass'
 gem 'handlebars_assets'
 gem 'typhoeus'
-gem 'handlebars_assets'
+gem 'rufus-scheduler'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
