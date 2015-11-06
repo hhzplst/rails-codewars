@@ -8,11 +8,15 @@ class KataController < ApplicationController
   end
  
   def create
-    level = @current_user.level.to_s
-    strategy = "kyu_#{level}_workout"
-    language = params["language"]
+    # level = @current_user.level.to_s
+    # strategy = "kyu_#{level}_workout"
+    strategy = "random"
+    if params["language"]
+      session[:language] = params["language"]
+    end
+    lang = session[:language]
     request = Typhoeus::Request.new(
-      "https://www.codewars.com/api/v1/code-challenges/#{language}/train",
+      "https://www.codewars.com/api/v1/code-challenges/#{lang}/train",
       method: :post,
       params: { stratgey: strategy },
       headers: { Authorization: "q-sizxUQz1x1tsnxuFnY", ContentType: "text/html;" }
@@ -48,7 +52,6 @@ class KataController < ApplicationController
 
   def check
     dmidCheck = params["dmid"]
-    binding.pry
     request_deferred = Typhoeus::Request.new(
       "https://www.codewars.com/api/v1/deferred/#{dmidCheck}",
       method: :get,
@@ -56,7 +59,6 @@ class KataController < ApplicationController
     )
     response_deferred = request_deferred.run
     @result_deferred = JSON.parse(response_deferred.response_body)
-    binding.pry
     render json: @result_deferred
   end    
 

@@ -1,17 +1,3 @@
-<div class="col-md-6">
-  <h2 style="color:white">Instructions</h2>
-  <pre>{{{description}}}</pre> 
-</div><br>
-<div class="col-md-6">
-  <h2 style="color:white;display:inline">Your Awesome Code</h2>
-  <div class="btn-group pull-right" role="group">
-    <button class="btn btn-info" id="skip">Skip</button>
-    <button class="btn btn-success" id="codesubmit">Submit</button>
-    <button class="btn btn-alert" id="cleanup">Clean Up</button>
-  </div><br>
-  <div id="editor">{{setup}}</div>
-  
-</div>
 
 <script src="/stylesheet/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 
@@ -19,4 +5,20 @@
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/cobalt");
     editor.session.setMode("ace/mode/ruby");
-</script> 
+</script>
+
+<div id="coding-challenge">
+  <div class="col-md-6" id="instruction">
+    <h2 style="color:white">Instructions</h2>
+    <pre>{{{description}}}</pre> 
+  </div><br>
+  <div class="col-md-6">
+    <h2 style="color:white;display:inline">Your Awesome Code</h2>
+    <div class="btn-group pull-right" role="group">
+      <button class="btn btn-info" id="skip">Skip</button>
+      <button class="btn btn-success" id="codesubmit">Submit</button>
+      <button class="btn btn-alert" id="cleanup">Clean Up</button>
+    </div><br>
+    <div id="editor">{{setup}}</div>
+  </div>  
+</div>

@@ -6,7 +6,7 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 
-<link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'> 
 
 </head>
 <body class="body-background">
@@ -53,6 +53,8 @@
         <% end %>
       <% end %>  
 </div>
+
+<div id="error" class="text-center"></div>
 
 
 <%= yield %>

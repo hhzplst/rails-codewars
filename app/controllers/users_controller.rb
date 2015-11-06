@@ -36,6 +36,7 @@ class UsersController < ApplicationController
 
   def logout
     session[:user_id] = nil
+    session[:language] = nil
     flash[:notice] = "Logged out"
     redirect_to home_path
   end
